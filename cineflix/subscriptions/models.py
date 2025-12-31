@@ -1,6 +1,6 @@
 from django.db import models
 
-from movies.models import MultiSelectField
+from multiselectfield import MultiSelectField
 
 
 # Create your models here.
@@ -62,3 +62,24 @@ class SubscriptionPlans(BaseClass):
         return self.name
 
 
+class UserSubscription(BaseClass):
+
+    profile = models.ForeignKey('authentication.Profile',on_delete=models.CASCADE)
+
+    plan = models.ForeignKey('SubscriptionPlans',on_delete=models.CASCADE)
+
+    start_date =models.DateTimeField(null=True,blank=True)
+
+    end_date = models.DateTimeField(null=True,blank=True)
+
+    active =models.BooleanField(default=False)
+
+    class Meta :
+
+        verbose_name ='User Subscription'
+         
+        verbose_name_plural ='User Subscription'
+
+    def __str__(self):
+
+        return f'{self.profile.username}-{self.plan.name}'

@@ -6,7 +6,7 @@ def permitted_user_roles(roles):
 
         def wrapper(request,*args,**kwargs):
 
-            if request.user.is_authentication and request.user.role in roles :
+            if request.user.is_authenticated and request.user.role in roles :
 
                 return fn(request,*args,**kwargs)
         
